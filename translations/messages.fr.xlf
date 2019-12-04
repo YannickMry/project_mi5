@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="P5lEkmj" resname="navbar.accueil">
+        <source>navbar.accueil</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="rIsAC1h" resname="navbar.boutique">
+        <source>navbar.boutique</source>
+        <target>Boutique</target>
+      </trans-unit>
+      <trans-unit id="1wXD_Tn" resname="navbar.rayon">
+        <source>navbar.rayon</source>
+        <target>Rayon</target>
+      </trans-unit>
+      <trans-unit id="iVNeBrZ" resname="navbar.contact">
+        <source>navbar.contact</source>
+        <target>Contactez nous</target>
+      </trans-unit>
+      <trans-unit id="_ogaJDP" resname="default.index.bienvenue">
+        <source>default.index.bienvenue</source>
+        <target>Bienvenue !</target>
+      </trans-unit>
+      <trans-unit id="1MBOPja" resname="navbar.rechercher">
+        <source>navbar.rechercher</source>
+        <target>Rechercher un produit...</target>
+      </trans-unit>
+      <trans-unit id="XLzBXjk" resname="navbar.btnRechercher">
+        <source>navbar.btnRechercher</source>
+        <target>Rechercher</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
