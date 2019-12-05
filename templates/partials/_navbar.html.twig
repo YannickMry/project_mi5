@@ -39,11 +39,23 @@
 
     <div class="dropdown ml-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-globe-europe"></i> {{app.request.locale}}
+            {% if app.request.locale == 'fr' %}
+                <img src="{{ asset('images/icon_flags/icon_french.png') }}" alt="">
+                <span class="ml-2">Fr</span>
+            {% elseif app.request.locale == 'en' %}
+                <img src="{{ asset('images/icon_flags/icon_english.png') }}" alt="">
+                <span class="ml-2">En</span>
+            {% endif %}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="{{ path('default_index', {'_locale': 'fr'})}}">Fr</a>
-            <a class="dropdown-item" href="{{ path('default_index', {'_locale': 'en'})}}">En</a>
+            <a class="dropdown-item d-flex align-items-center" href="{{ path('default_index', {'_locale': 'fr'})}}">
+                <img src="{{ asset('images/icon_flags/icon_french.png') }}" alt="">
+                <span class="ml-2">Fr</span>
+            </a>
+            <a class="dropdown-item d-flex align-items-center" href="{{ path('default_index', {'_locale': 'en'})}}">
+                <img src="{{ asset('images/icon_flags/icon_english.png') }}" alt="">
+                <span class="ml-2">En</span>
+            </a>
         </div>
     </div>
 </nav>
