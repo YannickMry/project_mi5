@@ -1,4 +1,52 @@
 {% extends "base.html.twig" %}
 
+{% block header %}
+    <h1 class="text-center">Votre panier</h1>
+{% endblock header %}
+
 {% block body %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Produit(s)</th>
+            <th>Quantitée</th>
+            <th>Prix unitaire</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cart in fullCart %}
+            <tr>
+                <td>{{cart.product.libelle}}</td>
+                <td>
+                    <a href="{{ path('cart_remove_one', {'productId': cart.product.id}) }}" class="mr-3">
+                        <i class="fas fa-minus-square"></i>
+                    </a>
+                    {{cart.quantity}}
+                    <a href="{{ path('cart_add', {'productId': cart.product.id}) }}" class="ml-3">
+                        <i class="fas fa-plus-square"></i>
+                    </a>
+                </td>
+                <td>{{cart.product.prix}} €</td>
+                <td>{{cart.product.prix * cart.quantity}} €</td>
+                <td>
+                    <a href="{{ path('cart_remove_all', {'productId': cart.product.id}) }}" class="text-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="alert alert-warning">Votre panier est vide...</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right font-weight-bold"> Total : </td>
+            <td colspan="2">{{price}} €</td>
+        </tr>
+    </tfoot>
+</table>
 {% endblock body %}

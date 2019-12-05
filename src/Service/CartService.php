@@ -27,9 +27,27 @@ class CartService
         }
         
         $this->session->set('cart', $cart);
+
+        $this->updateProductsQuantityInSession();
     }
 
-    public function remove(int $id)
+    public function removeOne(int $id)
+    {
+        $cart = $this->session->get('cart', []);
+
+        if(isset($cart[$id])){
+            $cart[$id]--;
+
+            if($cart[$id] === 0){
+                unset($cart[$id]);
+            }
+        }
+
+        $this->session->set('cart', $cart);
+        $this->updateProductsQuantityInSession();
+    }
+
+    public function removeAll(int $id)
     {
         $cart = $this->session->get('cart', []);
 
@@ -38,10 +56,51 @@ class CartService
         }
         
         $this->session->set('cart', $cart);
+        $this->updateProductsQuantityInSession();
     }
 
     public function getFullCart()
     {
-        return $this->session;
+        $productsWithData = [];
+        foreach ($this->session->get('cart', []) as $product => $quantity) {
+            if(!is_string($product)){
+                $productsWithData[] = [
+                    'product' => $this->productRepository->find($product),
+                    'quantity' => $quantity
+                ];
+            }
+        }
+
+        return $productsWithData;
+    }
+
+    public function getFullPrice()
+    {
+        $total = 0;
+
+        foreach ($this->getFullCart() as $v) {
+            $total += $v['quantity'] * $v['product']->getPrix();
+        }
+
+        return $total;
+    }
+
+    private function updateProductsQuantityInSession()
+    {
+        $total = 0;
+
+        foreach ($this->getFullCart() as $v) {
+            $total += $v['quantity'];
+        }
+
+        $cart = $this->session->get('cart', []);
+
+        $cart['productsQuantityInCart'] = $total;
+        
+        $this->session->set('cart', $cart);
+    }
+
+    public function supSession(){
+        $this->session->remove('cart');
     }
 }

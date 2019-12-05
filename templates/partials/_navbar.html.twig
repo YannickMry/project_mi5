@@ -12,7 +12,12 @@
                 <a class="nav-link" href="{{ path('store_index')}}">{{'navbar.boutique' | trans}}</a>
             </li>
             <li class="nav-item {% if current_menu is defined and current_menu == ""%}active{% endif %}">
-                <a class="nav-link" href="#">Panier (0)</a>
+                <a class="nav-link" href="#">Panier
+                    {% if app.session.get('cart')['productsQuantityInCart'] is defined %}
+                        ({{ app.session.get('cart')['productsQuantityInCart']}})
+                    {% else %}
+                    (0)
+                    {% endif %}</a>
             </li>
             <li class="nav-item {% if current_menu is defined and current_menu == "contact"%}active{% endif %}">
                 <a class="nav-link" href="{{ path('default_contact') }}">{{'navbar.contact' | trans}}</a>

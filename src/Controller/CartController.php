@@ -23,8 +23,11 @@ class CartController extends AbstractController
      */
     public function index()
     {
-        dd($this->cartService->getFullCart());
-        return $this->render('cart/index.html.twig');
+        return $this->render('cart/index.html.twig', [
+            'current_menu' => 'cart_index',
+            'fullCart' => $this->cartService->getFullCart(),
+            'price' => $this->cartService->getFullPrice(),
+        ]);
     }
 
     /**
@@ -40,14 +43,26 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/panier/remove/{productId}", name="cart_remove")
+     * @Route("/panier/remove-one/{productId}", name="cart_remove_one")
      *
      * @param integer $productId
      * @return void
      */
-    public function remove(int $productId)
+    public function removeOne(int $productId)
     {
-        $this->cartService->remove($productId);
+        $this->cartService->removeOne($productId);
+        return $this->redirectToRoute('cart_index');
+    }
+
+    /**
+     * @Route("/panier/remove-all/{productId}", name="cart_remove_all")
+     *
+     * @param integer $productId
+     * @return void
+     */
+    public function removeAll(int $productId)
+    {
+        $this->cartService->removeAll($productId);
         return $this->redirectToRoute('cart_index');
     }
 }
