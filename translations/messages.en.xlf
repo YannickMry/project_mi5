@@ -33,6 +33,14 @@
         <source>navbar.btnRechercher</source>
         <target>Search</target>
       </trans-unit>
+      <trans-unit id="qTTgibL" resname="navbar.connexion">
+        <source>navbar.connexion</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="EMYSdXB" resname="navbar.panier">
+        <source>navbar.panier</source>
+        <target>Cart</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

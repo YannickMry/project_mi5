@@ -1,23 +1,31 @@
 {% extends "base.html.twig" %}
+{% block title %}Votre panier{% endblock title %}
 
 {% block header %}
     <h1 class="text-center">Votre panier</h1>
 {% endblock header %}
 
 {% block body %}
+{% for flashMessage in app.flashes('success') %}
+<div class="alert alert-success">{{flashMessage}}</div>
+{% endfor %}
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>Produit(s)</th>
             <th>Quantitée</th>
             <th>Prix unitaire</th>
-            <th></th>
+            <th>Total</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {% for cart in fullCart %}
             <tr>
+                <td>
+                    <img src="{{ asset(cart.product.visuel)}}" alt="" style="width: 40px; height: 40px">
+                </td>
                 <td>{{cart.product.libelle}}</td>
                 <td>
                     <a href="{{ path('cart_remove_one', {'productId': cart.product.id}) }}" class="mr-3">
@@ -31,22 +39,30 @@
                 <td>{{cart.product.prix}} €</td>
                 <td>{{cart.product.prix * cart.quantity}} €</td>
                 <td>
-                    <a href="{{ path('cart_remove_all', {'productId': cart.product.id}) }}" class="text-danger">
+                    <a href="{{ path('cart_remove_row', {'productId': cart.product.id}) }}" class="text-danger" data-placement="right" title="Supprimer {{ cart.product.libelle }}" onclick="return confirm('Voulez-vous vraiment supprimer l\'article : {{cart.product.libelle}}');">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>
             </tr>
         {% else %}
         <tr>
-            <td colspan="5" class="alert alert-warning">Votre panier est vide...</td>
+            <td colspan="6" class="alert alert-warning">Votre panier est vide...</td>
         </tr>
         {% endfor %}
     </tbody>
+    {% if fullCart | length != 0 %}
     <tfoot>
         <tr>
-            <td colspan="3" class="text-right font-weight-bold"> Total : </td>
-            <td colspan="2">{{price}} €</td>
+            <td colspan="4" class="text-right font-weight-bold"> Total : </td>
+            <td>{{price}} €</td>
+            <td>
+                <a href="{{ path('cart_remove_all')}}" class="text-danger" data-placement="right" title="Supprimer le panier" onclick="return confirm('Voulez-vous vraiment supprimer le panier ?');">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
         </tr>
     </tfoot>
+    {% endif %}
+
 </table>
 {% endblock body %}

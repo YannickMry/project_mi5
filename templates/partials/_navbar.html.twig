@@ -11,19 +11,20 @@
             <li class="nav-item {% if current_menu is defined and current_menu == "store_index"%}active{% endif %}">
                 <a class="nav-link" href="{{ path('store_index')}}">{{'navbar.boutique' | trans}}</a>
             </li>
-            <li class="nav-item {% if current_menu is defined and current_menu == ""%}active{% endif %}">
-                <a class="nav-link" href="#">Panier
+            <li class="nav-item {% if current_menu is defined and current_menu == "cart_index"%}active{% endif %}">
+                <a class="nav-link" href="{{ path('cart_index') }}">{{'navbar.panier' | trans}}
                     {% if app.session.get('cart')['productsQuantityInCart'] is defined %}
                         ({{ app.session.get('cart')['productsQuantityInCart']}})
                     {% else %}
                     (0)
-                    {% endif %}</a>
+                    {% endif %}
+                </a>
             </li>
             <li class="nav-item {% if current_menu is defined and current_menu == "contact"%}active{% endif %}">
                 <a class="nav-link" href="{{ path('default_contact') }}">{{'navbar.contact' | trans}}</a>
             </li>
             <li class="nav-item ml-5 {% if current_menu is defined and current_menu == ""%}active{% endif %}">
-                <a class="nav-link" href="#">Connexion</a>
+                <a class="nav-link" href="#">{{'navbar.connexion' | trans}}</a>
             </li>
             {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item {% if current_menu is defined and current_menu == ""%}active{% endif %}">

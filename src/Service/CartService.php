@@ -16,7 +16,7 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
-    public function add(int $id)
+    public function add(?int $id)
     {
         $cart = $this->session->get('cart', []);
 
@@ -47,7 +47,7 @@ class CartService
         $this->updateProductsQuantityInSession();
     }
 
-    public function removeAll(int $id)
+    public function removeRow(int $id)
     {
         $cart = $this->session->get('cart', []);
 
@@ -56,6 +56,18 @@ class CartService
         }
         
         $this->session->set('cart', $cart);
+        $this->updateProductsQuantityInSession();
+    }
+
+    public function removeAll()
+    {
+        $cart = $this->session->get('cart', []);
+
+        if(isset($cart)){
+            unset($cart);
+        }
+        
+        $this->session->set('cart', []);
         $this->updateProductsQuantityInSession();
     }
 
