@@ -34,7 +34,7 @@ class FakeDatabase extends Fixture {
             $product = new Product();
             $product->setLibelle("Ski ".$i)
                 ->setTexte($texte)
-                ->setPrix(rand(200,500))
+                ->setPrix(rand(20000,50000)/100)
                 ->setVisuel('images/'.$image[rand(0,3)])
                 ->setCategory($categories[rand(0,2)]);
             

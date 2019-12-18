@@ -1,24 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StoreController!{% endblock %}
+{% block title %}Catégorie{% endblock %}
 
 {% block body %}
 <div class="row my-5">
-    {% for product in products %}
-        
-    <div class="card col-3 mx-4 mb-5" style="width: 18rem;">
-        <img class="card-img-top" src="{{asset(product.visuel)}}" alt="Card image cap">
-        <div class="card-body">
-            <h2 class="card-title">{{product.libelle}}</h2>
-            <p class="card-text">
-                <h4 class="text-primary">Prix : {{product.prix}} €</h4>
-                {{product.texte}}
-            </p>
-            <a href="{{ path('cart_add', {'productId': product.id}) }}" class="btn btn-primary">
-                <i class="fas fa-cart-arrow-down"></i> Ajouter
-            </a>
-        </div>
-    </div>  
+    <div class="col-12 jumbotron">
+        <h3 class="text-center">{{categories|length}} catégorie(s) disponible(s)</h3>
+    </div>
+    {% for category in categories %}
+    <div class="col-4 mb-3">    
+        <a href="{{ path('store_products_category', {'categoryId': category.id}) }}" class="card text-center">
+            <img class="card-img-top" src="{{asset(category.visuel)}}" alt="Image catégorie {{category.libelle}}">
+            <div class="card-body">
+                <h2 class="card-title">{{category.libelle}}</h2>
+            </div>
+        </a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

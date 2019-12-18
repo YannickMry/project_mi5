@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boutique{% endblock %}
+
+{% block body %}
+
+<div class="alert alert-secondary text-center">
+{% if app.request.pathInfo == '/boutique/search' %}
+    {{ products|length }}
+    {% if products|length <= 1 %} produit correspond à votre recherche.
+    {% else %} produits correspondent à votre recherche.
+    {% endif %}
+{% else %}
+    {{ category.libelle }} - {{ products|length }}
+    {% if products|length <= 1 %} produit est disponible dans la boutique.
+    {% else %} produits sont disponibles dans la boutique.
+    {% endif %}
+{% endif %}
+</div>
+
+<div class="row my-5">
+    {% for product in products %}
+    <div class="col-4 mb-3">
+        <div class="card">
+            <img class="card-img-top" src="{{asset(product.visuel)}}" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title">{{product.libelle}}</h2>
+                <p class="card-text">
+                    <h4 class="text-primary">Prix : {{product.prix}} €</h4>
+                    {{product.texte}}
+                </p>
+                <a href="{{ path('cart_add', {'productId': product.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-cart-arrow-down"></i> Ajouter
+                </a>
+            </div>
+        </div>  
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -33,9 +33,9 @@
             {% endif %}
         </ul>
     </div>
-    <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="{{ 'navbar.rechercher' | trans }}" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ 'navbar.btnRechercher' | trans }}</button>
+    <form action="{{ path('store_search')}}" method="GET" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" name="product" placeholder="{{ 'navbar.rechercher' | trans }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> {{ 'navbar.btnRechercher' | trans }}</button>
     </form>
 
     <div class="dropdown ml-2">

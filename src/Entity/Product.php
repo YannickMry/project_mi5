@@ -32,7 +32,7 @@ class Product
     private $texte;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $prix;
 

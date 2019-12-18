@@ -3,40 +3,65 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/boutique")
+ */
 class StoreController extends AbstractController
 {
     /**
-     * @Route("/boutique", name="store_index")
+     * @Route("/", name="store_index")
      */
-    public function index(ProductRepository $productRepository)
+    public function index(CategoryRepository $categoryRepository)
     {
-        $products = $productRepository->findAll();
+        $categories = $categoryRepository->findAll();
 
         return $this->render('store/index.html.twig', [
             'current_menu' => 'store_index',
+            'categories' => $categories,
+        ]);
+    }
+
+     /**
+     * Undocumented function
+     * 
+     * @Route("/{categoryId}/produits", name="store_products_category", defaults={"categoryId"="8"})
+     *
+     * @return void
+     */
+    public function rayon(Category $categoryId)
+    {
+        $products = $categoryId->getProducts();
+
+        return $this->render('store/products.html.twig', [
+            'current_menu' => 'store_index',
             'products' => $products,
+            'category' => $categoryId
         ]);
     }
 
     /**
      * Undocumented function
      * 
-     * @Route("/rayon/{category}", name="store_category", defaults={"idCategory"="8"})
+     * @Route("/search", name="store_search")
      *
+     * @param ProductRepository $productRepository
+     * @param Request $request
      * @return void
      */
-    public function rayon(Category $category)
+    public function search(ProductRepository $productRepository, Request $request)
     {
-        $products = $category->getProducts();
+        $search = $request->query->get('product');
+        $products = $productRepository->findByProductNameAndText($search);
 
-        return $this->render('store/productsByCat.html.twig', [
-            'current_menu' => 'store_category',
+        return $this->render('store/products.html.twig', [
+            'current_menu' => 'store_index',
             'products' => $products,
-            'category' => $category
         ]);
     }
 }
