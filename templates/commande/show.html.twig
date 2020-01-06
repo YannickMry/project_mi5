@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+{% block title %}Vos commandes{% endblock title %}
+
+{% block header %}
+    <h1 class="text-center">Vos commandes</h1>
+{% endblock header %}
+
+{% block body %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ligne in commande.ligneCommandes %}
+            <tr>
+                <td>{{ligne.article.libelle}}</td>
+                <td>{{ligne.quantite}}</td>
+                <td>{{ligne.prix}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% endblock body %}

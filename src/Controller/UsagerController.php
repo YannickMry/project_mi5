@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Usager;
 use App\Form\UsagerType;
 use App\Repository\UsagerRepository;
+use App\Service\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,14 +20,14 @@ class UsagerController extends AbstractController
     /**
      * @Route("/", name="usager_index", methods={"GET"})
      */
-    public function index(UsagerRepository $usagerRepository, SessionInterface $session): Response
+    public function index(UsagerRepository $usagerRepository, SessionInterface $session, CartService $cartService): Response
     {
         $idUsager = $session->get('usager');
         $usager = null;
         
         if($idUsager)
             $usager = $usagerRepository->find($idUsager);
-
+        
         return $this->render('usager/index.html.twig', [
             'usager' => $usager ? $usager->getFullName() : 'Aucun utilisateur connecté',
         ]);
@@ -46,9 +47,7 @@ class UsagerController extends AbstractController
             $entityManager->persist($usager);
             $entityManager->flush();
 
-            $session->set('usager', $usager->getId());
-
-            return $this->redirectToRoute('usager_index');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('usager/new.html.twig', [

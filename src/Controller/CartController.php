@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Repository\ProductRepository;
 use App\Service\CartService;
+use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -86,6 +85,27 @@ class CartController extends AbstractController
         $this->cartService->removeAll();
         $this->addFlash('success', "Le panier a été supprimé avec succès !");
         return $this->redirectToRoute('cart_index');
+    }
+
+    /**
+     * Undocumented function
+     * 
+     * @Route("/panier/validation", name="panier_validation")
+     *
+     * @return Response
+     */
+    public function cartToCommand()
+    {
+        $commande = null;
+        
+        if($this->getUser()){
+            $commande = $this->cartService->panierToCommande($this->getUser());
+        }
+
+        return $this->render('cart/panier_validation.html.twig', [
+            'current_menu' => 'cart_index',
+            'commande' => $commande
+        ]);
     }
 
     /**

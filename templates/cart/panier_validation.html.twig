@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block title %}Votre commande{% endblock title %}
+
+{% block header %}
+    <h1 class="text-center">Votre commande</h1>
+{% endblock header %}
+
+{% block body %}
+{{ dump(commande) }}
+{% endblock %}

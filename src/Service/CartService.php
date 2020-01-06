@@ -2,18 +2,51 @@
 
 namespace App\Service;
 
+use App\Entity\Commande;
+use App\Entity\LigneCommande;
+use App\Entity\Usager;
 use App\Repository\ProductRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
     private $session;
     private $productRepository;
+    private $em;
 
-    public function __construct(SessionInterface $session, ProductRepository $productRepository)
+    public function __construct(SessionInterface $session, ProductRepository $productRepository, EntityManagerInterface $em)
     {
         $this->session = $session;
         $this->productRepository = $productRepository;
+        $this->em = $em;
+    }
+
+    public function panierToCommande(Usager $usager){
+        $sessionCart = $this->getFullCart();
+
+        $commande = new Commande();
+        $commande->setUsager($usager)
+            ->setStatut(false)
+            ->setDateCommande(new DateTime());
+        $this->em->persist($commande);
+
+        foreach ($sessionCart as $cart) {
+            $ligneCommande = new LigneCommande();
+            $ligneCommande->setArticle($cart['product'])
+                ->setCommande($commande)
+                ->setQuantite($cart['quantity'])
+                ->setPrix($cart['product']->getPrix());
+            $commande->addLigneCommande($ligneCommande);
+            $this->em->persist($ligneCommande);
+        }
+        $this->em->flush();
+
+        $this->session->set('cart', []);
+        $this->updateProductsQuantityInSession();
+
+        return $commande;
     }
 
     public function add(?int $id)
