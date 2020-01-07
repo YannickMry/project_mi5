@@ -22,11 +22,7 @@ class UsagerController extends AbstractController
      */
     public function index(UsagerRepository $usagerRepository, SessionInterface $session, CartService $cartService): Response
     {
-        $idUsager = $session->get('usager');
-        $usager = null;
-        
-        if($idUsager)
-            $usager = $usagerRepository->find($idUsager);
+        $usager = $this->getUser();
         
         return $this->render('usager/index.html.twig', [
             'usager' => $usager ? $usager->getFullName() : 'Aucun utilisateur connecté',
@@ -44,6 +40,7 @@ class UsagerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            // TODO: Encoder le mot de passe de l'utilisateur
             $entityManager->persist($usager);
             $entityManager->flush();
 

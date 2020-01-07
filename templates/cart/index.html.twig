@@ -67,6 +67,12 @@
 </table>
 
 {% if fullCart|length != 0 %}
-    <a href="{{ path('panier_validation')}}" class="btn btn-success">Valider</a>
+    <a href="{{ path('panier_validation')}}" class="btn btn-success">
+    {% if is_granted('ROLE_CLIENT') %}
+        Valider
+    {% else %}
+        Vous devez être connecter pour valider votre panier
+    {% endif %}
+    </a>
 {% endif %}
 {% endblock body %}

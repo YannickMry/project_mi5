@@ -26,8 +26,7 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameters(['libelle' => $texte.'%', 'texte' => '%'.$texte.'%'])
             ->orderBy('p.libelle', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     // /**
