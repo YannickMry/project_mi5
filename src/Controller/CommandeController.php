@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/commande")
+ * @Route("/commande", name="commande_")
  */
 class CommandeController extends AbstractController
 {
@@ -15,7 +15,7 @@ class CommandeController extends AbstractController
     /**
      * Undocumented function
      * 
-     * @Route("/", name="commande_index")
+     * @Route("/", name="index")
      */
     public function index()
     {
@@ -28,7 +28,7 @@ class CommandeController extends AbstractController
     /**
      * Undocumented function
      * 
-     * @Route("/show/{idCommande}", name="commande_show")
+     * @Route("/show/{idCommande}", name="show")
      *
      * @param Commande $commande
      * @return void

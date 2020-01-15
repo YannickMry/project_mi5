@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Récapitulatif de votre commande</title>
+</head>
+<body>
+    <h1>Récapitulatif de votre commande</h1>
+    <ul>
+        {% for item in commande.ligneCommandes %}
+        <li>Nom : {{item.article}}, Quantitée : {{ item.quantite }}, Prix : {{ item.prix * item.quantite }} €</li>
+        {% endfor %}
+    </ul>
+    <h2> Total : {{ totalPrix }} €</h2>
+
+    <p>
+        Vous pouvez retrouver toutes vos commandes en cliquant sur le lien ci dessous : <br>
+        <a href="{{ url('commande_index') }}">Mes commandes</a>
+    </p>
+</body>
+</html>

@@ -35,11 +35,27 @@
       </trans-unit>
       <trans-unit id="qTTgibL" resname="navbar.connexion">
         <source>navbar.connexion</source>
-        <target>Login</target>
+        <target>Sign in/Sign up</target>
       </trans-unit>
       <trans-unit id="EMYSdXB" resname="navbar.panier">
         <source>navbar.panier</source>
         <target>Cart</target>
+      </trans-unit>
+      <trans-unit id="m10zGRs" resname="navbar.commande">
+        <source>navbar.commande</source>
+        <target>My orders</target>
+      </trans-unit>
+      <trans-unit id="SPkuTC3" resname="navbar.deconnexion">
+        <source>navbar.deconnexion</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="bEEocw2" resname="navbar.compte">
+        <source>navbar.compte</source>
+        <target>My account</target>
+      </trans-unit>
+      <trans-unit id="G.9w0kR" resname="navbar.menuDeroulant">
+        <source>navbar.menuDeroulant</source>
+        <target>Account</target>
       </trans-unit>
     </body>
   </file>

@@ -35,3 +35,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/panier/validation, roles: ROLE_CLIENT }
+        - { path: ^/commande, roles: ROLE_CLIENT }

@@ -14,7 +14,7 @@
             <li class="nav-item {% if current_menu is defined and current_menu == "cart_index"%}active{% endif %}">
                 <a class="nav-link" href="{{ path('cart_index') }}">{{'navbar.panier' | trans}}
                     {% if app.session.get('cart')['productsQuantityInCart'] is defined %}
-                    {# // TODO: Rajouter la partie du cours appel d'un controller dans une vue au lieu de passer par la session #}
+                    {# TODO: Rajouter la partie du cours appel d'un controller dans une vue au lieu de passer par la session #}
                         ({{ app.session.get('cart')['productsQuantityInCart']}})
                     {% else %}
                     (0)
@@ -24,14 +24,22 @@
             <li class="nav-item {% if current_menu is defined and current_menu == "contact"%}active{% endif %}">
                 <a class="nav-link" href="{{ path('default_contact') }}">{{'navbar.contact' | trans}}</a>
             </li>
-            <li class="nav-item ml-5 {% if current_menu is defined and current_menu == ""%}active{% endif %}">
+            {% if not app.user %}
+            <div class="nav-item">
                 <a class="nav-link" href="{{ path('app_login')}}">{{'navbar.connexion' | trans}}</a>
-            </li>
-            <li class="nav-item ml-5 {% if current_menu is defined and current_menu == "commande"%}active{% endif %}">
-                <a class="nav-link" href="{{ path('commande_index')}}">{{'navbar.commande' | trans}}</a>
-            </li>
-            <li class="nav-item ml-5 {% if current_menu is defined and current_menu == ""%}active{% endif %}">
-                <a class="nav-link" href="{{ path('app_login')}}">{{'navbar.deconnexion' | trans}}</a>
+            </div>
+            {% else %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ path('app_login') }}" id="menuCompte" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{'navbar.menuDeroulant' | trans }}
+                </a>                
+                <div class="dropdown-menu" aria-labelledby="menuCompte">
+                    <a class="dropdown-item" href="{{ path('usager_index')}}">{{'navbar.compte' | trans}}</a>
+                    <a class="dropdown-item" href="{{ path('commande_index')}}">{{'navbar.commande' | trans}}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('app_logout')}}">{{'navbar.deconnexion' | trans}}</a>
+                </div>
+                {% endif %}
             </li>
             {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item {% if current_menu is defined and current_menu == ""%}active{% endif %}">

@@ -19,10 +19,17 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    /**
+     * Requête permettant de récupérer des objets en base de donnée comprenant 
+     * dans le libelle ou dans le texte notre mot/phrase de notre variable texte 
+     * transmise en paramètre
+     *
+     * @param string $texte Texte à rechercher
+     * @return void
+     */
     public function findByProductNameAndText(string $texte){
         return $this->createQueryBuilder('p')
-            ->where('p.texte LIKE :texte')
-            ->andWhere('p.libelle LIKE :libelle')
+            ->where('p.texte LIKE :texte OR p.libelle LIKE :libelle')
             ->setParameters(['libelle' => $texte.'%', 'texte' => '%'.$texte.'%'])
             ->orderBy('p.libelle', 'ASC')
             ->getQuery()

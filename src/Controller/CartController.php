@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Repository\CommandeRepository;
 use App\Service\CartService;
 use App\Repository\ProductRepository;
+use App\Service\EmailService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Date;
 
 class CartController extends AbstractController
 {
@@ -94,18 +97,22 @@ class CartController extends AbstractController
      *
      * @return Response
      */
-    public function cartToCommand()
+    public function cartToCommand(\Swift_Mailer $mailer, CartService $cartService, CommandeRepository $commandeRepository, EmailService $emailService)
     {
         $commande = null;
-        
-        if($this->getUser()){
-            $commande = $this->cartService->panierToCommande($this->getUser());
-        }
 
-        return $this->render('cart/panier_validation.html.twig', [
-            'current_menu' => 'cart_index',
-            'commande' => $commande
-        ]);
+        if($this->getUser()){
+            $totalPrix = $this->cartService->getFullPrice();
+            $commande = $this->cartService->panierToCommande($this->getUser());
+            $emailService->sendEmail(
+                "Récapitulatif de commande du {$commande->getDateCommande()->format('d/m/Y')}", 
+                $this->getUser(), 
+                ['totalPrix' => $totalPrix, 'commande' => $commande]
+            );
+
+            $this->addFlash('success', "Un email vient de vous être envoyé comprenant un récapitulatif de votre commande.");
+        }
+        return $this->redirectToRoute('commande_index');
     }
 
     /**

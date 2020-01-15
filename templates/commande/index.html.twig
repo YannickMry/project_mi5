@@ -7,23 +7,34 @@
 
 {% block body %}
 {% for flashMessage in app.flashes('success') %}
-<div class="alert alert-success">{{flashMessage}}</div>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{flashMessage}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 {% endfor %}
 <table class="table table-hover">
     <thead>
         <tr>
             <th>N°</th>
             <th>Date</th>
-            <th>Statut</th>
+            <th class="text-center">Statut</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {% for commande in commandes %}
-            <tr>
+            <tr class="{% if commande.statut %}text-success{% else %}text-danger{% endif %}">
                 <td>{{commande.id}}</td>
                 <td>{{commande.dateCommande|date('d/m/Y')}}</td>
-                <td>{{commande.statut}}</td>
+                <td class="text-center">
+                    {% if commande.statut %}
+                    <i class="fas fa-check-square fa-2x"></i>
+                    {% else %}
+                    <i class="fas fa-hourglass-half fa-2x"></i>
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('commande_show', {'idCommande': commande.id})}}" class="btn btn-primary">Voir</a>
                 </td>
