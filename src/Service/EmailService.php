@@ -25,7 +25,7 @@ class EmailService {
      * @param array $variableArray
      * @return integer
      */
-    public function sendEmail(string $subject, Usager $usager, array $variableArray): int
+    public function sendEmail(string $subject, Usager $usager, array $variableArray)
     {
         
         $email = (new \Swift_Message($subject))
@@ -33,6 +33,6 @@ class EmailService {
             ->setTo($usager->getEmail())
             ->setBody($this->environment->render('emails/commande.html.twig', $variableArray), 'text/html');
         
-        return $this->mailer->send($email);
+        $this->mailer->send($email);
     }
 }

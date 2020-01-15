@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,6 +26,14 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/contact.html.twig', [
             'current_menu' => 'contact',
+        ]);
+    }
+
+    public function bestSale(ProductRepository $pr)
+    {
+        $ventes = $pr->findBestSale(4);
+        return $this->render('default/bestSale.html.twig', [
+            'ventes' => $ventes
         ]);
     }
 }

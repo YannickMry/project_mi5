@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Usager;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -31,6 +32,7 @@ class UsagerType extends AbstractType
                 'label' => 'Prénom',
                 'attr'  => ['placeholder' => 'Entrez votre prénom...']
             ])
+            ->add('captchaCode', CaptchaType::class, ['captchaConfig' => 'NewUserCaptcha'])
         ;
     }
 

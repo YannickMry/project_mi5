@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Top ventes</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for vente in ventes %}
+                    {% set product = vente.0 %}
+                    <a href="{{ path('store_products_category', {'categoryId': product.category.id}) }}">
+                        <li class="list-group-item text-center clickable">
+                            <img src="{{asset(product.visuel)}}" class="image-min" alt="Image {{product.libelle}}">
+                            <p class="small text-primary">
+                                <span class="font-weight-bold">{{product.libelle}}</span><br>
+                                <span class="font-weight-bold">{{vente.nbVente}}</span> vente(s)
+                            </p>
+                        </li>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>  
+    </div>
+</div>

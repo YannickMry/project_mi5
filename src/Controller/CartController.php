@@ -97,7 +97,7 @@ class CartController extends AbstractController
      *
      * @return Response
      */
-    public function cartToCommand(\Swift_Mailer $mailer, CartService $cartService, CommandeRepository $commandeRepository, EmailService $emailService)
+    public function cartToCommand(EmailService $emailService)
     {
         $commande = null;
 

@@ -36,6 +36,19 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findBestSale($maxResults)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('SUM(l.quantite) as nbVente')
+            ->join('p.ligneCommandes', 'l')
+            ->orderBy('nbVente', 'DESC')
+            ->groupBy('p.id')
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

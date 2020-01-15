@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Usager;
 use App\Form\UsagerType;
+use App\Repository\LigneCommandeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/usager", name="usager_")
@@ -18,10 +20,10 @@ class UsagerController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(LigneCommandeRepository $lr): Response
     {
         $usager = $this->getUser();
-        
+        dd($lr->findProductMostBought());
         return $this->render('usager/index.html.twig', [
             'usager' => $usager ? $usager->getFullName() : 'Aucun utilisateur connecté',
         ]);
@@ -30,7 +32,7 @@ class UsagerController extends AbstractController
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
      */
-    public function new(Request $request, SessionInterface $session): Response
+    public function new(Request $request, SessionInterface $session, UserPasswordEncoderInterface $encoder): Response
     {
         $usager = new Usager();
         $form = $this->createForm(UsagerType::class, $usager);
@@ -38,7 +40,8 @@ class UsagerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            // TODO: Encoder le mot de passe de l'utilisateur
+            $encodedPassword = $encoder->encodePassword($usager, $request->request->get('usager')['password']);
+            $usager->setPassword($encodedPassword);
             $entityManager->persist($usager);
             $entityManager->flush();
 
