@@ -1,0 +1,81 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://localhost:8000/soap" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" name="SoapGenService" targetNamespace="http://localhost:8000/soap">
+    <types>
+        <xsd:schema targetNamespace="http://localhost:8000/soap">
+            <xsd:complexType name="CommandeSoap">
+                <xsd:all>
+                    <xsd:element name="id" type="xsd:int" nullable="true"/>
+                    <xsd:element name="statut" type="xsd:boolean" nullable="true"/>
+                    <xsd:element name="createdAt" type="xsd:dateTime" nullable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <portType name="SoapGenServicePort">
+        <operation name="sayHello">
+            <documentation>Dis "Hello" à la personne passée en paramètre</documentation>
+            <input message="tns:sayHelloIn"/><output message="tns:sayHelloOut"/>
+        </operation>
+        <operation name="sumHello">
+            <documentation>Réalise la somme de deux entiers</documentation>
+            <input message="tns:sumHelloIn"/><output message="tns:sumHelloOut"/>
+        </operation>
+        <operation name="getLastCommandByUserId">
+            <documentation>Récupère la dernière commande d'un utilisateur en fonction de son ID</documentation>
+            <input message="tns:getLastCommandByUserIdIn"/>
+            <output message="tns:getLastCommandByUserIdOut"/>
+        </operation>
+    </portType>
+    <binding name="SoapGenServiceBinding" type="tns:SoapGenServicePort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="sayHello"><soap:operation soapAction="http://localhost:8000/soap#sayHello"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8000/soap"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8000/soap"/>
+            </output>
+        </operation>
+        <operation name="sumHello">
+            <soap:operation soapAction="http://localhost:8000/soap#sumHello"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8000/soap"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8000/soap"/>
+            </output>
+        </operation>
+        <operation name="getLastCommandByUserId">
+            <soap:operation soapAction="http://localhost:8000/soap#getLastCommandByUserId"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8000/soap"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:8000/soap"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SoapGenServiceService">
+        <port name="SoapGenServicePort" binding="tns:SoapGenServiceBinding">
+            <soap:address location="http://localhost:8000/soap"/>
+        </port>
+    </service>
+    <message name="sayHelloIn">
+        <part name="name" type="xsd:string"/>
+    </message>
+    <message name="sayHelloOut">
+        <part name="return" type="xsd:string"/>
+    </message>
+    <message name="sumHelloIn">
+        <part name="a" type="xsd:int"/>
+        <part name="b" type="xsd:int"/>
+    </message>
+    <message name="sumHelloOut">
+        <part name="return" type="xsd:int"/>
+    </message>
+    <message name="getLastCommandByUserIdIn">
+        <part name="id" type="xsd:int"/>
+    </message>
+    <message name="getLastCommandByUserIdOut">
+        <part name="return" type="tns:CommandeSoap"/>
+    </message>
+</definitions>

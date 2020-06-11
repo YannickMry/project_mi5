@@ -1,4 +1,6 @@
 api_platform:
+    title: 'Api platform mi15'
+    show_webby: false
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:
@@ -7,6 +9,13 @@ api_platform:
         versions: [3]
     collection:
         pagination:
+            enabled: true
             items_per_page: 2
-            maximum_items_per_page: 3
-            page_parameter_name: pageNumber
+            page_parameter_name: 'page'
+    formats:
+        jsonld:
+            mime_types: ['application/ld+json']
+        json:
+            mime_types: ['application/json']
+        html:
+            mime_types: ['text/html']

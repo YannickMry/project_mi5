@@ -8,6 +8,7 @@
         "ext-intl": "*",
         "api-platform/api-pack": "^1.2",
         "captcha-com/symfony-captcha-bundle": "4.*",
+        "laminas/laminas-soap": "^2.8",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",

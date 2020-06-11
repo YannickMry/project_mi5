@@ -2,12 +2,23 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ApiResource(
+ *  attributes={
+ *      "order"={"prix"="ASC"}
+ *  },
+ *  normalizationContext={"groups"={"read:product"}},
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"libelle": "partial", "category": "exact"})
  */
 class Product
 {
@@ -15,32 +26,38 @@ class Product
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"read:product"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:product", "post:product"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read:product", "post:product"})
      */
     private $visuel;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:product", "post:product"})
      */
     private $texte;
 
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @Groups({"read:product", "post:product"})
      */
     private $prix;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"read:product"})
      */
     private $category;
 

@@ -22,6 +22,9 @@
     "captcha-com/symfony-captcha-bundle": {
         "version": "4.2.12"
     },
+    "container-interop/container-interop": {
+        "version": "1.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -137,8 +140,26 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
+    "laminas/laminas-escaper": {
+        "version": "2.6.1"
+    },
     "laminas/laminas-eventmanager": {
         "version": "3.2.1"
+    },
+    "laminas/laminas-server": {
+        "version": "2.8.1"
+    },
+    "laminas/laminas-soap": {
+        "version": "2.8.0"
+    },
+    "laminas/laminas-stdlib": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-uri": {
+        "version": "2.7.1"
+    },
+    "laminas/laminas-validator": {
+        "version": "2.13.4"
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
