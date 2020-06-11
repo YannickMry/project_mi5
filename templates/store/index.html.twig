@@ -12,7 +12,7 @@
     {% for category in categories %}
     <div class="col-4 mb-3">    
         <a href="{{ path('store_products_category', {'categoryId': category.id}) }}" class="card text-center">
-            <img class="card-img-top" src="{{asset(category.visuel)}}" alt="Image catégorie {{category.libelle}}">
+            <img class="card-img-top img-card-medium" src="{{asset(category.visuel)}}" alt="Image catégorie {{category.libelle}}">
             <div class="card-body">
                 <h2 class="card-title">{{category.libelle}}</h2>
             </div>

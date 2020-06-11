@@ -1,6 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
 
+.img-card-medium {
+    height: 372px;
+    object-fit: contain;
+}
+
 .image-min {
     height: 100px;
-    
 }

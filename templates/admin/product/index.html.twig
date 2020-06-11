@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice - Liste des produits{% endblock %}
+
+{% block body %}
+    <h1>Liste des produits</h1>
+    <a href="{{ path('product_new') }}" class="btn btn-primary my-3">Ajouter un nouveau produit</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Visuel</th>
+                <th>Texte</th>
+                <th>Prix</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.libelle }}</td>
+                <td>{{ product.visuel }}</td>
+                <td>{{ product.texte }}</td>
+                <td>{{ product.prix }}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{{ path('product_show', {'id': product.id}) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                        </div>
+                        <div class="col-12 my-2">
+                            <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                        </div>
+                        <div class="col-12">
+                            {{ include('admin/product/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun produit...</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

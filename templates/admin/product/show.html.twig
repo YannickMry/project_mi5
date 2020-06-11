@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Backoffice - Produit{% endblock %}
+
+{% block body %}
+    <h1>{{ product.libelle }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ product.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Visuel</th>
+                <td>
+                    <img class="img-card-medium" src="{{asset( product.visuel )}}" alt="{{ product.visuel }}">
+                </td>
+            </tr>
+            <tr>
+                <th>Texte</th>
+                <td>{{ product.texte }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ product.prix }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_index') }}">Retour à la liste des produits</a>
+{% endblock %}

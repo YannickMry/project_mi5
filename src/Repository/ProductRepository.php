@@ -30,7 +30,7 @@ class ProductRepository extends ServiceEntityRepository
     public function findByProductNameAndText(string $texte){
         return $this->createQueryBuilder('p')
             ->where('p.texte LIKE :texte OR p.libelle LIKE :libelle')
-            ->setParameters(['libelle' => $texte.'%', 'texte' => '%'.$texte.'%'])
+            ->setParameters(['libelle' => '%'.$texte.'%', 'texte' => '%'.$texte.'%'])
             ->orderBy('p.libelle', 'ASC')
             ->getQuery()
             ->getResult();

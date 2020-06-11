@@ -23,7 +23,6 @@ class UsagerController extends AbstractController
     public function index(LigneCommandeRepository $lr): Response
     {
         $usager = $this->getUser();
-        dd($lr->findProductMostBought());
         return $this->render('usager/index.html.twig', [
             'usager' => $usager ? $usager->getFullName() : 'Aucun utilisateur connecté',
         ]);
